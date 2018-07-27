@@ -84,7 +84,8 @@ def CddHddCal(drybulb, Tbase):
     return DegreeDay
 
 ##This part calculates the Hdd and Cdd from epw hourly dry-bulb temperature data, the base temperature
-# is 18.3333C(65F) in this script.
+# is 18.3333C(65F) in this script. Some codes in pyepw package are changed to succussfully read some weather data
+# in extremely climates(some ranges broadened to avoid error)
 
 '''
 ##Make a list of weather stations in USA, the scripts to download all the weather files is :https://gist.github.com/aahoo/b4aaeb179b51b69e342c5e324e305155
@@ -160,6 +161,7 @@ print(df[2])
 '''
 
 ##Read CddHdd files from .csv
+
 path = 'C:\\Users\\yueyue.zhou\\Desktop\\CddHddByClimateZone\\'
 
 #Read Climate Zone Names from FileNames, and put data to pds dataframe
@@ -171,15 +173,13 @@ for FileName  in CZLs:
     CZ = CZInf.split('.')[0]
     CzList.append(CZ)
     #parse the filename to get Climatezone names only
-
     labels = []
-
-
+    #put data to pds dataframe
     dfitem = pd.read_csv(path + FileName,skiprows = 1, names = Headers, index_col=0)
 
-    #Acsending by hdd( or cdd)
-    #dfitemSort = dfitem.sort_values(by=['Hdd'])
-    dfitemSort = dfitem.sort_values(by=['Cdd'])
+    #Acsending the data in df by hdd( or cdd)
+    dfitemSort = dfitem.sort_values(by=['Hdd'])
+    #dfitemSort = dfitem.sort_values(by=['Cdd'])
 
     StationList = dfitemSort.index.tolist()
     for station in StationList:
@@ -195,8 +195,6 @@ for FileName  in CZLs:
     LabelCol = pd.Series(labels,index = dfitemSort.index)
     dfitemSort['Label'] = LabelCol
     df.append(dfitemSort)
-print (len(df[0]))
-print(df[0])
 
 ##plot with Dash
 app = dash.Dash()
