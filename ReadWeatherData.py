@@ -178,8 +178,8 @@ for FileName  in CZLs:
     dfitem = pd.read_csv(path + FileName,skiprows = 1, names = Headers, index_col=0)
 
     #Acsending the data in df by hdd( or cdd)
-    dfitemSort = dfitem.sort_values(by=['Hdd'])
-    #dfitemSort = dfitem.sort_values(by=['Cdd'])
+    #dfitemSort = dfitem.sort_values(by=['Hdd'])
+    dfitemSort = dfitem.sort_values(by=['Cdd'])
 
     StationList = dfitemSort.index.tolist()
     for station in StationList:

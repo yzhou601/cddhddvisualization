@@ -5,7 +5,7 @@
 
 ## Introduction
 * This script is used to plot cooling degree days and heating degree days calculated from .epw file
-* To sort the data by climate zones, the .stat files are also required. (There's cdd and hdd information in stat files as well, the data sources might be different for different locations)
+* To sort the data by climate zones, the .stat files are also required. (There's cdd and hdd information in stat files as well, the data sources or calculation methods might be different)
 * The base temperature is 65F (18.3333C)
 * The calculation method is from :http://www.vesma.com/ddd/ddcalcs.htm, which is more accurate than the simple approximation methods according to [Wikipedia](https://en.wikipedia.org/wiki/Heating_degree_day)
 * This script can only work for the .epw weather files that are able to be read by pyepw package
